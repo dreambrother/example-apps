@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+
+<xs:schema version="1.0"
+           xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           targetNamespace="http://nikcode.blogspot.com/">
+               
+    <xs:element name="ComputeSumRequest">
+        <xs:complexType>
+            <xs:all>
+                <xs:element minOccurs="1" maxOccurs="1" name="x" type="xs:integer"/>
+                <xs:element minOccurs="1" maxOccurs="1" name="y" type="xs:integer"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+
+    <xs:element name="ComputeSumResponse">
+        <xs:complexType>
+            <xs:all>
+                <xs:element minOccurs="1" maxOccurs="1" name="result" type="xs:integer"/>
+            </xs:all>
+        </xs:complexType>
+    </xs:element>
+        
+</xs:schema>

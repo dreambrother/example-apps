@@ -1,0 +1,112 @@
+body {
+    background-color: #c0deed;
+    margin: auto;
+    width: 600px;
+    text-shadow: 0 1px 1px grey;
+}
+
+.tweets {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.tweets li {
+    border-color: #E8E8E8;
+    border-style: solid;
+    border-width: 1px;
+    padding-top: 5px;
+    padding-left: 15px;
+    font-family: Helvetica;
+    background-color: whitesmoke;
+    border-radius: 10px;
+    margin: 5px;
+    text-shadow: none;
+}
+
+.author-name {
+    font-size: 12px;
+}
+
+.tweets time {
+    padding-right: 15px;
+    padding-bottom: 5px;
+    font-size: 11px;
+}
+
+.title {
+    float: left;
+}
+
+.title a {
+    text-decoration: none;
+    padding: 5px;
+}
+
+.title a:link {
+    color: black;
+}
+
+.title a:visited {
+    color: black;
+}
+
+.new-tweet {
+    float: right;
+    font-size: 18px;
+    margin-top: 30px;
+}
+
+.new-tweet a {
+    text-decoration: none;
+    padding: 5px;
+}
+
+.new-tweet a:link {
+    color: black;
+}
+
+.new-tweet a:visited {
+    color: black;
+}
+
+.new-tweet a:hover {
+    background-color: whitesmoke;
+}
+
+.clearfix:before, 
+.clearfix:after {content:""; display:table;}
+.clearfix:after {clear:both;}
+.clearfix {zoom:1;}
+
+.tweet-text textarea:focus {
+    outline: 0;
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}
+
+.tweet-text textarea {
+    border-radius: 5px;
+    border-style: none;
+    background-color: whitesmoke;
+    width: 100%;
+    font-family: Helvetica;
+}
+
+.login-box {
+    font-family: Helvetica;
+    background-color: whitesmoke;
+    border-radius: 5px;
+    border-style: none;
+    text-shadow: none;
+}
+
+.login-box:focus {
+    outline: 0;
+    border-color: rgba(82, 168, 236, 0.8);
+    -webkit-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    -moz-box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1), 0 0 8px rgba(82, 168, 236, 0.6);
+}

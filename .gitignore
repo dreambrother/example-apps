@@ -1,0 +1,10 @@
+target
+catalog.xml
+*.log
+hsql.properties
+hsql.script
+nbactions.xml
+nb-configuration.xml
+hsql.tmp
+tmp
+test-result

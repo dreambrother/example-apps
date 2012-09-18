@@ -1,0 +1,12 @@
+#{extends 'main.html' /}
+#{set title:'Main' /}
+
+<ol class="tweets">
+    #{list items:tweets, as:'tweet'}
+        <li>
+            ${tweet.text} <br/>
+            <span class="author-name">${tweet.author.name}</span> 
+            <time>${tweet.creationTime.format("dd/MM/yyyy HH") + "h"}</time>
+        </li>
+    #{/list}
+</ol>

@@ -1,0 +1,40 @@
+<html>
+    <head>
+        <script>
+            var socket = new WebSocket("ws://localhost:8080");
+            socket.onopen = function() {
+                writeToLog("Connection opened");
+            };
+            socket.onclose = function() {
+                vwriteToLog("Connection closed");
+            };
+            socket.onmessage = function(event) {
+                writeToLog("Recieve msg: " + event.data);
+                alert(event.data);
+            };
+            var send = function(msg) {
+                writeToLog("Send msg: " + msg);
+                socket.send(msg);
+            };
+            var onEventSubscribe = function() {
+                var eventName = document.getElementById("eventName").value;
+                send("Sub:" + eventName);
+            };
+            var fireEvent = function() {
+                var eventName = document.getElementById("eventName").value;
+                send("Fire:" + eventName);
+            }
+            var writeToLog = function(msg) {
+                var current = document.getElementById("logOutput").value;
+                document.getElementById("logOutput").value = current + "\n" + msg;
+            }
+        </script>
+    </head>
+    <body>
+        <input type="text" id="eventName"/>
+        <input type="button" onclick="onEventSubscribe()" value="Subscribe"/>
+        <input type="button" onclick="fireEvent()" value="Fire Event"/>
+        <br>
+        <textarea id="logOutput" rows="30" cols="40"></textarea>
+    </body>
+</html>

@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+
+<html>
+    <head>
+        <title>#{get 'title' /}</title>
+        <meta charset="${_response_encoding}">
+        <link rel="stylesheet" media="screen" href="@{'/public/stylesheets/main.css'}">
+        #{get 'moreStyles' /}
+        <link rel="shortcut icon" type="image/png" href="@{'/public/images/favicon.png'}">
+        <script src="@{'/public/javascripts/jquery-1.6.4.min.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        <script src="@{'/public/javascripts/main.js'}" type="text/javascript" charset="${_response_encoding}"></script>
+        #{get 'moreScripts' /}
+    </head>
+    <body>
+        <div class="clearfix">
+            <h1 class="title"><a href="/">Play! Twitter</a></h1>
+            <div class="new-tweet">
+                #{if request.cookies[controllers.Application.LOGIN_COOKIE] }
+                    <a href="@{application.addPage}">New tweet</a>
+                    <a href="@{application.logout}">Logout</a>
+                #{/if}
+                #{else}
+                    <form action="@{application.login}" method="POST" id="login-form">
+                        <input class="login-box" type="text" name="login"/>
+                        <input type="hidden" name="currentUrl" value="${request.url}"/>
+                        <a id="process-login" href="">Login</a>
+                    </form>
+                #{/else}
+            </div>
+        </div>
+        #{doLayout /}
+        <div style="margin-top: 25px; text-align: center">Play! Twitter. 2012</div>
+    </body>
+</html>

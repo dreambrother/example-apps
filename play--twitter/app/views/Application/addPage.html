@@ -1,0 +1,14 @@
+#{extends 'main.html' /}
+#{set title:'Add Tweet' /}
+
+#{if request.cookies[controllers.Application.LOGIN_COOKIE] }
+    <form action="@{application.addTweet}" method="POST">
+        <div class="tweet-text">
+            <textarea rows="5" name="text" id="text"></textarea>
+            <div style="text-align: right"><input type="submit" value="Tweet!"/></div>
+        </div>
+    </form>
+#{/if}
+#{else}
+    You are not authorized.
+#{/else}

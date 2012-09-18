@@ -1,0 +1,12 @@
+User(nik):
+    name: nik
+
+Tweet(tweetOne):
+    text: HI! This is my first tweet! :)
+    creationTime: 2010-08-01
+    author: nik
+    
+Tweet(tweetTwo):
+    text: Hello play framework!
+    creationTime: 2011-10-02
+    author: nik
