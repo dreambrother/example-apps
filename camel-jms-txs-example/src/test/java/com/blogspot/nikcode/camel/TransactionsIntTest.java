@@ -1,5 +1,7 @@
 package com.blogspot.nikcode.camel;
 
+import org.apache.camel.Consume;
+import org.apache.camel.ConsumerTemplate;
 import org.apache.camel.EndpointInject;
 import org.apache.camel.Produce;
 import org.apache.camel.ProducerTemplate;
@@ -24,6 +26,9 @@ public class TransactionsIntTest {
     
     @Produce(uri = "mock:activemq:queue")
     private ProducerTemplate producer;
+    
+    @Consume(uri = "mock:activemq:queue")
+    private ConsumerTemplate consumer;
     
     @Test
     public void testSendBody() throws InterruptedException {
