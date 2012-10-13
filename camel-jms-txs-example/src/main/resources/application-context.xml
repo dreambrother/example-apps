@@ -16,19 +16,23 @@
     <!--  Embedded ActiveMQ Broker -->
     <amq:broker id="broker" useJmx="false" persistent="false">
         <amq:transportConnectors>
-            <amq:transportConnector uri="tcp://localhost:0" />
+            <amq:transportConnector uri="tcp://localhost:0"/>
         </amq:transportConnectors>
     </amq:broker>
 
     <!-- JMS ConnectionFactory to use, configuring the embedded broker using XML -->
-    <amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost" />
+    <amq:connectionFactory id="jmsFactory" brokerURL="vm://localhost"/>
+    
+    <bean id="jmsProducerTemplate" class="org.springframework.jms.core.JmsTemplate"
+          p:connectionFactory-ref="jmsFactory"
+          p:defaultDestinationName="queue"/>
     
     <bean id="jmsTxManager" class="org.springframework.jms.connection.JmsTransactionManager">
         <property name="connectionFactory" ref="jmsFactory"/>
     </bean>
     
     <bean id="activemq" class="org.apache.camel.component.activemq.ActiveMQComponent">
-        <property name="connectionFactory" ref="jmsFactory"/>
+        <property name="brokerURL" value="vm://localhost?jms.redeliveryPolicy.maximumRedeliveries=-1"/>
         <property name="transacted" value="true"/>
         <property name="transactionManager" ref="jmsTxManager"/>
     </bean>

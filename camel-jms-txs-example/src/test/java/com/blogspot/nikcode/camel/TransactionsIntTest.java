@@ -1,14 +1,15 @@
 package com.blogspot.nikcode.camel;
 
-import org.apache.camel.Consume;
-import org.apache.camel.ConsumerTemplate;
-import org.apache.camel.EndpointInject;
-import org.apache.camel.Produce;
-import org.apache.camel.ProducerTemplate;
-import org.apache.camel.component.mock.MockEndpoint;
-import org.apache.camel.test.spring.MockEndpoints;
+import javax.jms.JMSException;
+import javax.jms.Message;
+import javax.jms.Session;
+import org.apache.camel.CamelContext;
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.core.MessageCreator;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
@@ -18,22 +19,23 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/application-context.xml")
-@MockEndpoints("activemq:*")
 public class TransactionsIntTest {
 
-    @EndpointInject(uri = "mock:activemq:queue")
-    private MockEndpoint mockEndpoint;
+    @Autowired
+    private CamelContext camelContext;
     
-    @Produce(uri = "mock:activemq:queue")
-    private ProducerTemplate producer;
-    
-    @Consume(uri = "mock:activemq:queue")
-    private ConsumerTemplate consumer;
+    @Autowired
+    private JmsTemplate jmsTemplate;
     
     @Test
-    public void testSendBody() throws InterruptedException {
-        mockEndpoint.expectedBodiesReceived("test");
-        producer.sendBody("test");
-        mockEndpoint.assertIsSatisfied();
+    public void testJmsTransactions() {
+        jmsTemplate.send(new MessageCreator() {
+            @Override
+            public Message createMessage(Session sn) throws JMSException {
+                return sn.createTextMessage("test");
+            }
+        });
+        Object body = camelContext.createConsumerTemplate().receiveBodyNoWait("activemq:queue");
+        Assert.assertEquals("test", body);
     }
 }

@@ -11,6 +11,7 @@ public class FailProcessor implements Processor {
 
     @Override
     public void process(Exchange exchange) throws Exception {
+        System.out.println("Start processing exchange " + exchange);
         throw new IllegalStateException("Cannot process " + exchange);
     }
 }
