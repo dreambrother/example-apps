@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ipojo xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="org.apache.felix.ipojo http://felix.apache.org/ipojo/schemas/CURRENT/core.xsd"
+  xmlns="org.apache.felix.ipojo">
+  <component classname="com.blogspot.nikcode.camel.RouteBuilder"
+               name="camel-java-dsl-example"
+               public="false"
+               immediate="true">
+
+            <requires optional="false"
+                      specification="org.ow2.jonas.camel.service.api.ICamelService">
+                <callback type="bind" method="setCamelService" />
+            </requires>
+
+            <callback transition="validate" method="start" />
+            <callback transition="invalidate" method="stop" />
+  </component>
+  <instance component="camel-java-dsl-example" />
+</ipojo>
