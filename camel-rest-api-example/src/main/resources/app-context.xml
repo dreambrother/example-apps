@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context/spring-context.xsd"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+          http://www.springframework.org/schema/context/spring-context.xsd http://www.springframework.org/schema/context/spring-context.xsd
+          http://camel.apache.org/schema/spring http://camel.apache.org/schema/spring/camel-spring.xsd
+">
+
+    <bean id="restletComponent" class="org.restlet.Component"/>
+    <bean id="restletComponentService" class="org.apache.camel.component.restlet.RestletComponent">
+        <constructor-arg index="0">
+            <ref bean="restletComponent"/>
+        </constructor-arg>
+    </bean>
+    
+    <bean id="itemEndpoint" class="com.blogspot.nikcode.camel.rest.ItemEndpoint"/>
+    
+    <camelContext xmlns="http://camel.apache.org/schema/spring">
+        <dataFormats>
+            <json id="itemMarshaller" library="Jackson" unmarshalTypeName="com.blogspot.nikcode.camel.rest.Item"/>
+        </dataFormats>
+        <route>
+            <from uri="restlet:/items?restletMethod=GET"/>
+            <bean ref="itemEndpoint" method="getAll"/>
+            <marshal ref="itemMarshaller"/>
+        </route>
+        <route>
+            <from uri="restlet:/items?restletMethod=POST"/>
+            <unmarshal ref="itemMarshaller"/>
+            <bean ref="itemEndpoint" method="save"/>
+        </route>
+        <route>
+            <from uri="restlet:/item/{itemId}?restletMethod=GET"/>
+            <bean ref="itemEndpoint" method="getById(${header.itemId})"/>
+            <marshal ref="itemMarshaller"/>
+        </route>
+    </camelContext>
+    
+</beans>

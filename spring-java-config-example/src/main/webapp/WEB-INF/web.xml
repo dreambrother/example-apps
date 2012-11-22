@@ -33,10 +33,6 @@
                 org.springframework.web.context.support.AnnotationConfigWebApplicationContext
             </param-value>
         </init-param>
-        <init-param>
-            <param-name>contextConfigLocation</param-name>
-            <param-value>com.acme.web.MvcConfig</param-value>
-        </init-param>
     </servlet>
 
     <servlet-mapping>
