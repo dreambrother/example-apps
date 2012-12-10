@@ -10,4 +10,5 @@ public interface TransactionDao {
 
     Transaction getById(long id);
     void save(Transaction tx);
+    void update(Transaction tx);
 }

@@ -30,4 +30,14 @@ public class TransactionDaoImpl implements TransactionDao {
     public void save(Transaction tx) {
         txs.add(tx);
     }
+    
+    @Override
+    @CacheEvict(value = "transactions", key = "#tx.id")
+    public void update(Transaction tx) {
+        for (int i = 0; i < txs.size(); i++) {
+            if (txs.get(i).getId() == tx.getId()) {
+                txs.set(i, tx);
+            }
+        }
+    }
 }

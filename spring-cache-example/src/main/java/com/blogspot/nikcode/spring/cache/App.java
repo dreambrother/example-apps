@@ -10,7 +10,7 @@ public class App {
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
         TransactionDao txDao = applicationContext.getBean(TransactionDao.class);
         
-        for (int i = 0; i < 100000; i++) {
+        for (int i = 0; i < 10000; i++) {
             txDao.save(new Transaction(i, i + 1000));
         }
         
@@ -25,5 +25,9 @@ public class App {
         end = System.nanoTime();
         
         System.out.println("Search from cache: " + (end - start));
+        
+        System.out.println("Amount of the tx: " + txDao.getById(1L).getAmount());
+        txDao.update(new Transaction(1, 5000L));
+        System.out.println("Amount of the tx: " + txDao.getById(1L).getAmount());
     }
 }
