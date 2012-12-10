@@ -1,14 +1,29 @@
 package com.blogspot.nikcode.spring.cache;
 
+import com.blogspot.nikcode.spring.cache.dao.TransactionDao;
 import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 public class App {
 
     public static void main(String[] args) {
-        ApplicationContext appContext = new ClassPathXmlApplicationContext("spring-context.xml");
-        Calculator calculator = appContext.getBean(Calculator.class);
-        calculator.longOperation(1);
-        calculator.longOperation(1);
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
+        TransactionDao txDao = applicationContext.getBean(TransactionDao.class);
+        
+        for (int i = 0; i < 100000; i++) {
+            txDao.save(new Transaction(i, i + 1000));
+        }
+        
+        long start = System.nanoTime();
+        txDao.getById(100000);
+        long end = System.nanoTime();
+        
+        System.out.println("Search without cache: " + (end - start));
+        
+        start = System.nanoTime();
+        txDao.getById(100000);
+        end = System.nanoTime();
+        
+        System.out.println("Search from cache: " + (end - start));
     }
 }
