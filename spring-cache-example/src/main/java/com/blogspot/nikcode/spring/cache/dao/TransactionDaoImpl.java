@@ -27,7 +27,6 @@ public class TransactionDaoImpl implements TransactionDao {
     }
 
     @Override
-    @CacheEvict(value = "transactions", allEntries = true)
     public void save(Transaction tx) {
         txs.add(tx);
     }
