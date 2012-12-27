@@ -8,3 +8,5 @@ nb-configuration.xml
 hsql.tmp
 tmp
 test-result
+.idea
+*.iml
