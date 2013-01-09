@@ -9,8 +9,8 @@ import java.net.Socket;
 public class Client {
 
     public static void main(String[] args) throws IOException {
-        Socket socket = new Socket("localhost", 8080);
-        socket.getOutputStream().write("Test socket".getBytes());
-        socket.close();
+        try (Socket socket = new Socket("localhost", 8080)) {
+            socket.getOutputStream().write("Test socket".getBytes());
+        }
     }
 }
