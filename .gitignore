@@ -9,3 +9,5 @@ hsql.tmp
 tmp
 test-result
 *.out
+.idea
+*.iml
