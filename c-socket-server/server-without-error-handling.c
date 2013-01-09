@@ -7,6 +7,7 @@
 #include <unistd.h>
 
 // Simple single thread server, that prints incoming requests to the stdout.
+// Error handling disabled for code readability.
 int main() {
     int s = socket(AF_INET, SOCK_STREAM, 0);
     
@@ -39,7 +40,7 @@ int main() {
         memcpy(request, buf, byte_count);
         puts(request);
         
-        char response[] = "HTTP/1.1 200 OK \n\n";
+        char response[] = "HTTP/1.1 200 OK \n Content-Type: text/xml;charset=utf-8 \n Content-Length: 0 \n";
         send(cs, response, sizeof response, 0);
         close(cs);
     }
