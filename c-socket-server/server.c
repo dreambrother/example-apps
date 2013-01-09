@@ -66,7 +66,7 @@ int main() {
         memcpy(request, buf, byte_count);
         puts(request);
         
-        char response[] = "char response[] = "HTTP/1.1 200 OK \n Content-Type: text/xml;charset=utf-8 \n Content-Length: 0 \n";";
+        char response[] = "HTTP/1.1 200 OK \n Content-Type: text/xml;charset=utf-8 \n Content-Length: 0 \n";
         if (send(cs, response, sizeof response, 0) == -1) {
             perror("send error");
             close(s);
