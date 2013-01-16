@@ -10,7 +10,7 @@ import java.io.StringReader;
 public class Main {
 
     public static void main(String[] args) throws JAXBException {
-        JAXBContext jaxbContext = JAXBContext.newInstance(Currency.class, Event.class, Money.class, ImmutableMoneyContainer.class);
+        JAXBContext jaxbContext = JAXBContext.newInstance(Currency.class, Event.class, Money.class, ImmutableMoneyContainer.class, ObjectWithNamespace.class);
 
         Money charge = new Money();
         charge.setAmount(100L);
@@ -45,5 +45,9 @@ public class Main {
         container = (ImmutableMoneyContainer) jaxbContext.createUnmarshaller().unmarshal(
                 new StringReader("<container><money><amount>560</amount><currency>EUR</currency></money></container>"));
         System.out.println(container.toString());
+
+        ObjectWithNamespace obj = new ObjectWithNamespace();
+        obj.setVal("test val");
+        jaxbContext.createMarshaller().marshal(obj, System.out);
     }
 }
