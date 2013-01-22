@@ -23,7 +23,7 @@ int main() {
     
     bind(s, (struct sockaddr *) &serv_addr, sizeof(serv_addr));
     
-    // start listening on port 6666, allow only 1 connection in the incominq queue
+    // start listening on port 7000, allow only 1 connection in the incominq queue
     listen(s, 1);
     
     int cs; // client socket

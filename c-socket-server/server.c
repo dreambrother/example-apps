@@ -35,7 +35,7 @@ int main() {
         exit(1);
     }
     
-    // start listening on port 6666, allow only 1 connection in the incominq queue
+    // start listening on port 7000, allow only 1 connection in the incominq queue
     if (listen(s, 1) == -1) {
         perror("listen error");
         close(s);
