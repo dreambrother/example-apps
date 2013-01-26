@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+    <script src="//connect.soundcloud.com/sdk.js"></script>
+    <script>
+        function sc() {
+            SC.initialize({
+                client_id: "0e1b499fda08474854795d2d0c86cc1f"
+            });
+            SC.stream("/tracks/solid-steel-radio-show-21-12-1", function(sound){
+                sound.play();
+            });
+        }
+    </script>
+    <body onload="sc()">
+        <h1>Solid Steel Radio Show 21/12/2012 Part 1 + 2 - Banks + DJ Irk</h1>
+    </body>
+</html>
