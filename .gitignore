@@ -11,3 +11,4 @@ test-result
 *.out
 .idea
 *.iml
+*.pyc
