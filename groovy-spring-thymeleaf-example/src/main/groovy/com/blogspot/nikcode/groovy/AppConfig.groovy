@@ -29,7 +29,8 @@ class AppConfig {
         return new ServletContextTemplateResolver(
                 prefix: "/WEB-INF/views/",
                 suffix: ".html",
-                templateMode: "HTML5"
+                templateMode: "HTML5",
+                cacheable: false
         )
     }
 
