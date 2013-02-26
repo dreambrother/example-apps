@@ -8,16 +8,7 @@
 <body>
     <div layout:fragment="main">
         <h1 th:text="'Hello, ' + ${name}"></h1>
-        <table>
-            <tr>
-                <td>ID</td>
-                <td>Name</td>
-            </tr>
-            <tr th:each="item : ${items}">
-                <td th:text="${item.id}"></td>
-                <td th:text="${item.name}"></td>
-            </tr>
-        </table>
+        <div th:include="items :: items-table" th:with="col1='ID', col2='Name'"></div>
     </div>
 </body>
 </html>

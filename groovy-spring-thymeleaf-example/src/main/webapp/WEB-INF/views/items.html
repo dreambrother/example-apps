@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+    <div th:fragment="items-table">
+        <table>
+            <tr>
+                <td th:text="${col1}"></td>
+                <td th:text="${col2}"></td>
+            </tr>
+            <tr th:each="item : ${items}">
+                <td th:text="${item.id}"></td>
+                <td th:text="${item.name}"></td>
+            </tr>
+        </table>
+    </div>
+</body>
+</html>
