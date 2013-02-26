@@ -1,5 +1,6 @@
 package com.blogspot.nikcode.groovy
 
+import nz.net.ultraq.web.thymeleaf.LayoutDialect
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
 import org.springframework.web.servlet.config.annotation.EnableWebMvc
@@ -36,7 +37,9 @@ class AppConfig {
 
     @Bean
     def thymeleafTemplateEngine() {
-        return new SpringTemplateEngine(templateResolver: thymeleafTemplateResolver())
+        def engine = new SpringTemplateEngine(templateResolver: thymeleafTemplateResolver())
+        engine.addDialect(new LayoutDialect())
+        return engine
     }
 
     @Bean

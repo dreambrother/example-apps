@@ -21,6 +21,8 @@ class ExampleController {
 
     @RequestMapping("/example-with-view")
     def executeWithView() {
-        return new ModelAndView("example", ["name": "Groovy + Spring MVC + Thymeleaf"])
+        return new ModelAndView("example",
+                ["name": "Groovy + Spring MVC + Thymeleaf",
+                "items": [new Item(id: 1, name: "Example 1"), new Item(id: 2, name: "Example 2")]])
     }
 }
