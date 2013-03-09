@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
+        <link href="css/bootstrap.min.css" rel="stylesheet"/>
+        <script src="js/bootstrap.min.js"></script>
+    </head>
+    <body>
+        <div class="container-fluid">
+            <div class="row-fluid">
+                <div class="span2">
+                    Test1<br/>
+                    <div class="tabbable"> <!-- Only required for left/right tabs -->
+                        <ul class="nav nav-tabs">
+                            <li class="active"><a href="#tab1" data-toggle="tab">Section 1</a></li>
+                            <li><a href="#tab2" data-toggle="tab">Section 2</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="tab1">
+                                <p>I'm in Section 1.</p>
+                            </div>
+                            <div class="tab-pane" id="tab2">
+                                <p>I'm in Section 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="span10">
+                    Test2<br/>
+                    <button class="btn">Fucking button</button>
+                    <button class="btn">Another button</button>
+                    <div class="btn-group">
+                        <button class="btn">1</button>
+                        <button class="btn">2</button>
+                    </div>
+                    <br/>
+                    <ul class="nav nav-tabs nav-stacked">
+                        <li class="active">
+                            <a href="#">1</a>
+                        </li>
+                        <li><a href="#">2</a></li>
+                        <li><a href="#">3</a></li>
+                    </ul>
+                    <div class="span3">
+                        <div class="navbar">
+                            <div class="navbar-inner">
+                                <ul class="nav">
+                                    <li class="active"><a href="#t21" data-toggle="tab">1</a></li>
+                                    <li><a href="#t22" data-toggle="tab">2</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="t21">
+                                <p>I'm in Section 1.</p>
+                            </div>
+                            <div class="tab-pane" id="t22">
+                                <p>I'm in Section 2.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
