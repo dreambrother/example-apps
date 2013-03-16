@@ -14,12 +14,13 @@ class AsyncController {
     @RequestMapping(value = '/async-freeze')
     @ResponseBody
     DeferredResult<String> freeze() {
-        Thread.sleep(Long.MAX_VALUE)
+        // don't set result
+        new DeferredResult<>()
     }
 
     @RequestMapping(value = '/async-test')
     @ResponseBody
-    String test() {
-        'Async works'
+    DeferredResult<String> test() {
+        new DeferredResult<>(result: 'Async works')
     }
 }

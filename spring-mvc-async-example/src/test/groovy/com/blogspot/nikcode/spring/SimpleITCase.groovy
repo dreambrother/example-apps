@@ -27,12 +27,14 @@ class SimpleITCase {
         performGet('/async-test')
     }
 
-//    @Test
-//    void testSyncFreeze() {
-//        ExecutorService executorService = Executors.newFixedThreadPool(250);
-//        250.times { println("$it"); executorService.execute({ performGet('/sync-freeze') } as Runnable) }
-//        executorService.shutdown()
-//    }
+    @Test
+    void testFreeze() {
+        int poolSize = 200;
+        ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
+        poolSize.times { println("$it"); executorService.execute({ performGet('/async-freeze') } as Runnable) }
+        performGet('/async-test')
+        executorService.shutdownNow()
+    }
 
     private void performGet(String relativeUri) {
         HttpGet httpGet = new HttpGet(URL + relativeUri)
