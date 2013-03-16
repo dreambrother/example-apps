@@ -15,7 +15,7 @@ import static org.junit.Assert.assertEquals
  */
 class SimpleITCase {
 
-    static final String URL = 'http://localhost:8080/spring-mvc-async-example'
+    static final String URL = 'http://localhost:8080/spring-mvc-async-example-1.0-SNAPSHOT/'
 
     @Test
     void syncTest() {
@@ -28,8 +28,13 @@ class SimpleITCase {
     }
 
     @Test
+    void asyncDeferredTest() {
+        performGet('/async-deferred-test')
+    }
+
+    @Test
     void testFreeze() {
-        int poolSize = 200;
+        int poolSize = 250;
         ExecutorService executorService = Executors.newFixedThreadPool(poolSize);
         poolSize.times { println("$it"); executorService.execute({ performGet('/async-freeze') } as Runnable) }
         performGet('/async-test')

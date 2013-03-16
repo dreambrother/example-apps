@@ -5,6 +5,9 @@ import org.springframework.web.bind.annotation.RequestMapping
 import org.springframework.web.bind.annotation.ResponseBody
 import org.springframework.web.context.request.async.DeferredResult
 
+import java.util.concurrent.Callable
+import java.util.concurrent.Executors
+
 /**
  *
  */
@@ -20,7 +23,15 @@ class AsyncController {
 
     @RequestMapping(value = '/async-test')
     @ResponseBody
-    DeferredResult<String> test() {
-        new DeferredResult<>(result: 'Async works')
+    Callable<String> test() {
+        return { 'Async works' } as Callable<String>
+    }
+
+    @RequestMapping(value = '/async-deferred-test')
+    @ResponseBody
+    DeferredResult<String> anotherTest() {
+        DeferredResult<String> result = new DeferredResult<String>()
+        Executors.newSingleThreadExecutor().submit({ result.result = 'Deferred async works' } as Runnable)
+        result
     }
 }
