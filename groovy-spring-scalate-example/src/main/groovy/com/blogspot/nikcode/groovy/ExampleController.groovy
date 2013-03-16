@@ -16,11 +16,11 @@ class ExampleController {
     @RequestMapping("/example")
     @ResponseBody
     def execute() {
-        return service.exampleString()
+        service.exampleString()
     }
 
     @RequestMapping("/example-with-view")
     def executeWithView() {
-        return new ModelAndView("example")
+        new ModelAndView("example", [name: "test"])
     }
 }
