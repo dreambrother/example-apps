@@ -1,0 +1,7 @@
+<html t:type="layout" title="Contact com.blogspot.nikcode.tapestry"
+      xmlns:t="http://tapestry.apache.org/schema/tapestry_5_3.xsd"
+      xmlns:p="tapestry:parameter">
+
+    <p>Contact com.blogspot.nikcode.tapestry ...</p>
+
+</html>
