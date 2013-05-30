@@ -1,0 +1,15 @@
+@color: #4D926F;
+
+header {
+  background-color: @color;
+}
+
+.rounded-corners (@radius: 5px) {
+  border-radius: @radius;
+  -webkit-border-radius: @radius;
+  -moz-border-radius: @radius;
+}
+
+header {
+  .rounded-corners;
+}
