@@ -61,7 +61,7 @@
                             <td><%= tx.contact %></td>
                             <td><%= tx.message %></td>
                             <td><%= tx.amount %></td>
-                            <td class="text-center  ">
+                            <td>
                                 <%= Wallet.importTemplate("statusTemplate", tx) %>
                             </td>
                             <td><%= new Date(tx.date).format('dd mmm yyyy') %></td>
