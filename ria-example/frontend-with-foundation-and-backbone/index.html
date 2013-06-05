@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>   
+    <head>
+        <title>Wallet. Example app written in backbone.js + foundation</title>
+        <link rel="stylesheet" href="libs/foundation/css/foundation.min.css">
+    </head>
+    <body>
+        <div class="row">
+            <nav class="top-bar">
+                <ul class="title-area">
+                    <li class="name">
+                        <h1><a href="">Wallet</a></h1>
+                    </li>
+                </ul>
+                <section class="top-bar-section">
+                    <ul class="left">
+                        <li class="divider"></li>
+                        <li id="contacts"><a href="#contacts">Contacts</a></li>
+                        <li class="divider"></li>
+                        <li id="txs"><a href="#txs">Transactions</a></li>
+                        <li class="divider"></li>
+                    </ul>
+                </section>
+            </nav>
+        </div>
+        <div id="main-content" class="row">
+            <div class="large-12 columns text-center panel">
+                <h1 class="subheader">
+                    Wallet. Example Rich Internet Application.
+                </h1>
+                <span>Click to the link at the top menu to start work.</span>
+            </div>
+        </div>
+        <div class="row text-center">
+            <h4><small>
+                2013. Wallet. Example Rich Internet Application, developed with Backbone.js and Foundation.
+            </small></h4>
+        </div>
+
+        <!-- templates -->
+        <script type="text/underscore-template" id="contacts-template" src="templates/contacts.html"></script>
+        <script type="text/underscore-template" id="txs-template" src="templates/transactions.html">
+            <div class="large-4 large-offset-4">
+            <h3>Transactions</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Contact</th>
+                        <th>Message</th>
+                        <th>Amount</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Alexey</td>
+                        <td>This is for my beer</td>
+                        <td>100 RUB</td>
+                    </tr>
+                    <tr>
+                        <td>Mihail</td>
+                        <td>My debt</td>
+                        <td>1200 RUB</td>
+                    </tr>
+                    <tr>
+                        <td>Andrey</td>
+                        <td>Happy birthday!</td>
+                        <td>1000 RUB</td>
+                    </tr>
+                </tbody>
+            </table>
+            <a href="#" class="button right">New payment</a>
+            </div>
+        </script>
+
+        <!-- Dependencies -->
+        <script type="text/javascript" src="libs/underscore-min.js"></script>
+        <script type="text/javascript" src="libs/jquery-2.0.2.min.js"></script>
+        <script type="text/javascript" src="libs/backbone-min.js"></script>
+
+        <!-- Application -->
+        <script type="text/javascript" src="js/views.js"></script>
+        <script type="text/javascript" src="js/controllers.js"></script>
+    </body>
+</html>
