@@ -5,7 +5,8 @@ var clearSelection = function() {
 var HomeController = Backbone.Router.extend({
 	routes: {
 		"contacts": "contacts",
-		"txs": "transactions"
+		"txs": "transactions",
+		"new-payment": "newPayment"
 	},
 	contacts: function() {
 		clearSelection();
@@ -35,6 +36,10 @@ var HomeController = Backbone.Router.extend({
 				date: 1281231132312
 			}]
 		}).$el);
+	},
+	newPayment: function() {
+		clearSelection();
+		$("#main-content").html(Views.newPaymentView.render({}).$el);
 	}
 });
 

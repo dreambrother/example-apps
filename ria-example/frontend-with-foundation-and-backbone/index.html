@@ -27,7 +27,7 @@
             </nav>
         </div>
         <div id="main-content" class="row">
-            <div class="large-12 columns text-center panel">
+            <div class="large-12 columns panel">
                 <h1 class="subheader">
                     Wallet. Example Rich Internet Application.
                 </h1>
@@ -69,7 +69,7 @@
                     }) %>
                 </tbody>
             </table>
-            <a href="#" class="small button">New payment</a>
+            <a href="#new-payment" class="small button">New payment</a>
         </script>
         <script type="text/underscore-template" id="statusTemplate">
             <%
@@ -87,6 +87,38 @@
                 <%
             }
             %>
+        </script>
+        <script type="text/underscore-template" id="new-payment-template">
+            <h3>New payment</h3>
+            <form>
+                <div class="small-4">
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="inline">Contact</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="right-label" placeholder="Contact name">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="inline">Amount</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="right-label" placeholder="Payment amount">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="small-3 columns">
+                            <label for="right-label" class="inline">Message</label>
+                        </div>
+                        <div class="small-9 columns">
+                            <input type="text" id="right-label" placeholder="Payment message">
+                        </div>
+                    </div>
+                    <a href="#" class="small button">Submit</a>
+                </div>
+            </form>
         </script>
 
         <!-- Dependencies -->

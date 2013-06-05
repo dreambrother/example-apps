@@ -20,7 +20,16 @@ var ContactsView = Backbone.View.extend({
     }
 });
 
+var NewPaymentView = Backbone.View.extend({
+    template: _.template($("#new-payment-template").html()),
+    render: function (model) {
+        this.$el.html(this.template(model));
+        return this;
+    }
+});
+
 var Views = {
 	txsView: new TransactionsView(),
-	contactsView: new ContactsView()
+	contactsView: new ContactsView(),
+    newPaymentView: new NewPaymentView()
 };
