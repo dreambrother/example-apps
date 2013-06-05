@@ -20,6 +20,9 @@
                         <li id="txs"><a href="#txs">Transactions</a></li>
                         <li class="divider"></li>
                     </ul>
+                    <ul class="right">
+                        <li><a href="#balance">Balance: 5000 RUB</a></li>
+                    </ul>
                 </section>
             </nav>
         </div>
@@ -38,9 +41,8 @@
         </div>
 
         <!-- templates -->
-        <script type="text/underscore-template" id="contacts-template" src="templates/contacts.html"></script>
-        <script type="text/underscore-template" id="txs-template" src="templates/transactions.html">
-            <div class="large-4 large-offset-4">
+        <script type="text/underscore-template" id="contacts-template"></script>
+        <script type="text/underscore-template" id="txs-template">
             <h3>Transactions</h3>
             <table>
                 <thead>
@@ -48,34 +50,50 @@
                         <th>Contact</th>
                         <th>Message</th>
                         <th>Amount</th>
+                        <th>Status</th>
+                        <th>Date</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>Alexey</td>
-                        <td>This is for my beer</td>
-                        <td>100 RUB</td>
-                    </tr>
-                    <tr>
-                        <td>Mihail</td>
-                        <td>My debt</td>
-                        <td>1200 RUB</td>
-                    </tr>
-                    <tr>
-                        <td>Andrey</td>
-                        <td>Happy birthday!</td>
-                        <td>1000 RUB</td>
-                    </tr>
+                    <% _.each(transactions, function(tx) {
+                        %>
+                        <tr>
+                            <td><%= tx.contact %></td>
+                            <td><%= tx.message %></td>
+                            <td><%= tx.amount %></td>
+                            <td class="text-center  ">
+                                <%= Wallet.importTemplate("statusTemplate", tx) %>
+                            </td>
+                            <td><%= new Date(tx.date).format('dd mmm yyyy') %></td>
+                        </tr><%
+                    }) %>
                 </tbody>
             </table>
-            <a href="#" class="button right">New payment</a>
-            </div>
+            <a href="#" class="small button">New payment</a>
+        </script>
+        <script type="text/underscore-template" id="statusTemplate">
+            <%
+            if (status == "SUCCEEDED") { 
+                %>
+                <span class="success label">OK</span>
+                <%
+            } else if (status == "PENDING") {
+                %>
+                <span class="secondary label">PENDING</span>
+                <%
+            } else if (status == "FAILED") {
+                %>
+                <span class="alert label">FAILED</span>
+                <%
+            }
+            %>
         </script>
 
         <!-- Dependencies -->
         <script type="text/javascript" src="libs/underscore-min.js"></script>
         <script type="text/javascript" src="libs/jquery-2.0.2.min.js"></script>
         <script type="text/javascript" src="libs/backbone-min.js"></script>
+        <script type="text/javascript" src="libs/date.format.js"></script>
 
         <!-- Application -->
         <script type="text/javascript" src="js/views.js"></script>

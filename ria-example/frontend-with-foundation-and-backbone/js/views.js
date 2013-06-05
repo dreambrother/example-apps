@@ -1,3 +1,9 @@
+var Wallet = {
+    importTemplate: function(viewName, model) {
+        return _.template($("#" + viewName).html())(model);
+    }
+};
+
 var TransactionsView = Backbone.View.extend({
 	template: _.template($('#txs-template').html()),
     render: function (model) {
@@ -14,7 +20,7 @@ var ContactsView = Backbone.View.extend({
     }
 });
 
-var views = {
+var Views = {
 	txsView: new TransactionsView(),
 	contactsView: new ContactsView()
 };
