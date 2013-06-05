@@ -12,3 +12,4 @@ test-result
 .idea
 *.iml
 *.pyc
+.DS_Store
