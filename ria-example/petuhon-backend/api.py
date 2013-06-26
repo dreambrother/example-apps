@@ -1,5 +1,6 @@
 from flask import Flask, jsonify, request
 from domain import Transaction
+import json
 
 app = Flask(__name__)
 transactionsList = [Transaction('Andrew', 'Test tx', 1000, 'OK', 123123123344),
@@ -13,6 +14,8 @@ def transactions():
 
 @app.route('/transactions', methods=['POST'])
 def save_transaction():
+	newTx = Transaction(**json.loads(request.data))	
+	transactionsList.append(newTx)
 	return ''
 
 if __name__ == "__main__":
