@@ -24,18 +24,23 @@ var NewPaymentView = Backbone.View.extend({
     template: _.template($("#new-payment-template").html()),
     render: function (model) {
         this.$el.html(this.template(model));
+        Views.newPaymentView.delegateEvents();
         return this;
     },
     events: {
         "click #submit-payment": "submitPayment"
     },
     submitPayment: function() {
-        new Transaction({
+        new Transaction().save({
             contact: $("#contact-name").val(),
             amount: $("#payment-amount").val(),
             message: $("#payment-message").val(),
             date: new Date().valueOf()
-        }).save();
+        }, {
+            success: function() {
+                homeController.navigate("txs", {trigger: true});
+            }
+        });
     }
 });
 

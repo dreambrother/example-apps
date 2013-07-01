@@ -26,5 +26,5 @@ var HomeController = Backbone.Router.extend({
 	}
 });
 
-new HomeController();
+var homeController = new HomeController();
 Backbone.history.start();

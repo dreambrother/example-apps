@@ -1,6 +1,7 @@
 class Transaction:
 
-	def __init__(self, contact, message, amount, status, date):
+	def __init__(self, id, contact, message, amount, status, date):
+		self.id = id
 		self.contact = contact
 		self.message = message
 		self.amount = amount
