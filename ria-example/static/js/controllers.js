@@ -17,12 +17,12 @@ var HomeController = Backbone.Router.extend({
 		tx.fetch({success: function(data) {
 			clearSelection();
 			$("#txs").addClass("active");
-			$("#main-content").html(Views.txsView.render(data.attributes).$el);
+			$("#main-content").html(new TransactionsView().render(data.attributes).$el);
 		}});
 	},
 	newPayment: function() {
 		clearSelection();
-		$("#main-content").html(Views.newPaymentView.render({}).$el);
+		$("#main-content").html(new NewPaymentView().render({}).$el);
 	}
 });
 
