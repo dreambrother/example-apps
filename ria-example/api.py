@@ -14,8 +14,11 @@ def transactions():
 
 @app.route('/transactions', methods=['POST'])
 def save_transaction():
-	new_tx = Transaction(**json.loads(request.data))	
+	tx_dict = json.loads(request.data)
+	tx_dict['status'] = 'SUCCEEDED'
+	new_tx = Transaction(**tx_dict)
 	transactions_list.append(new_tx)
+	return ''
 
 if __name__ == "__main__":
     app.run(debug=True)

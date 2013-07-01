@@ -25,6 +25,17 @@ var NewPaymentView = Backbone.View.extend({
     render: function (model) {
         this.$el.html(this.template(model));
         return this;
+    },
+    events: {
+        "click #submit-payment": "submitPayment"
+    },
+    submitPayment: function() {
+        new Transaction({
+            contact: $("#contact-name").val(),
+            amount: $("#payment-amount").val(),
+            message: $("#payment-message").val(),
+            date: new Date().valueOf()
+        }).save();
     }
 });
 
