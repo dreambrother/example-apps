@@ -12,14 +12,6 @@ var TransactionsView = Backbone.View.extend({
     }
 });
 
-var ContactsView = Backbone.View.extend({
-	template: _.template($('#contacts-template').html()),
-    render: function (model) {
-        this.$el.html(this.template(model));
-        return this;
-    }
-});
-
 var NewPaymentView = Backbone.View.extend({
     template: _.template($("#new-payment-template").html()),
     render: function (model) {
@@ -27,7 +19,8 @@ var NewPaymentView = Backbone.View.extend({
         return this;
     },
     events: {
-        "click #submit-payment": "submitPayment"
+        "click #submit-payment": "submitPayment",
+        "click #cancel-payment": "cancelPayment"
     },
     submitPayment: function() {
         new Transaction().save({
@@ -40,5 +33,8 @@ var NewPaymentView = Backbone.View.extend({
                 homeController.navigate("txs", {trigger: true});
             }
         });
+    },
+    cancelPayment: function() {
+        homeController.navigate("txs", {trigger: true});
     }
 });

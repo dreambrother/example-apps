@@ -4,13 +4,8 @@ var clearSelection = function() {
 
 var HomeController = Backbone.Router.extend({
 	routes: {
-		"contacts": "contacts",
 		"txs": "transactions",
 		"new-payment": "newPayment"
-	},
-	contacts: function() {
-		clearSelection();
-		$("#contacts").addClass("active");
 	},
 	transactions: function() {
 		var tx = new Transaction();
