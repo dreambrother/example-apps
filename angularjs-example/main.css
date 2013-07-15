@@ -1,0 +1,16 @@
+.left-panel {
+	float: left;
+}
+
+.right-panel {
+	margin: 0px 150px;
+}
+
+.middle-text {
+	text-align: center;
+}
+
+ul {
+	list-style: none;
+	margin: 0;
+}

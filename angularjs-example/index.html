@@ -1,0 +1,25 @@
+<!doctype html>
+
+<html ng-app="history">
+    <head>
+        <title>History</title>
+        <link rel="stylesheet" type="text/css" href="main.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.7/angular.min.js"></script>
+        <script type="text/javascript" src="app.js"></script>
+    </head>
+    <body>
+        <div>
+            <h1 class="middle-text">Your payments history</h1>
+            <hr>
+            <div class="left-panel" ng-controller="ContactsController">
+                <ul>
+                    <li ng-repeat="contact in contacts">
+                        <a href="#{{contact.name}}">{{contact.name}}</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-panel" ng-view>
+            </div>
+        </div>
+    </body>
+</html>
