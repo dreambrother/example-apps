@@ -13,3 +13,7 @@ test-result
 *.iml
 *.pyc
 .DS_Store
+node_modules
+build
+_SpecRunner.html
+.grunt
