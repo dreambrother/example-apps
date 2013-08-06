@@ -1,0 +1,35 @@
+/* CSS styles in this file are need for proper Baron work */
+.wrapper {
+    position: absolute;
+    overflow: hidden;
+}
+.scroller {
+    height: 100%;
+    overflow-y: scroll;
+    border: 0;
+}
+
+.scroller article {
+    padding-right: 30px;
+}
+
+.scroller::-webkit-scrollbar { /* Preventing webkit bug of horizontal scrolling */
+    width: 0;
+}
+.scroller__bar { /* The bar. You should define width, right and background */
+    position: absolute;    
+    z-index: 1;
+    right: 0;
+    width: 10px;
+    background: #999;
+}
+
+.scroller__track {
+    display: block;
+    position: absolute;
+    right: 0px;
+    top: 0px;
+    bottom: 0px;
+    width: 10px;
+    background: rgba(0, 0, 0, .1);
+}
