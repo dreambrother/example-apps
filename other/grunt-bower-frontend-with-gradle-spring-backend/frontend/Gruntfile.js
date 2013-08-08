@@ -10,7 +10,7 @@ module.exports = function(grunt) {
         uglify: {
             build: {
                 files: {
-                    'build/app.min.js': ['js/src/app.js', 'lib/angular/angular.js']
+                    'build/app.min.js': ['lib/angular/angular.js', 'js/src/app.js']
                 }
             }
         },
@@ -33,6 +33,20 @@ module.exports = function(grunt) {
                 files: ['less/*.less'],
                 tasks: ['less']
             }
+        },
+        env: {
+            dev: {
+                scripts: 'list'
+            },
+            build: {
+                scripts: 'bundle'
+            }
+        },
+        preprocess: {
+            html : {
+                src : 'html/index.html',
+                dest : 'build/index.html'
+            }
         }
     });
 
@@ -42,9 +56,12 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-less');
     grunt.loadNpmTasks('grunt-contrib-watch');
+    grunt.loadNpmTasks('grunt-env');
+    grunt.loadNpmTasks('grunt-preprocess');
 
     // Default task(s).
     grunt.registerTask('default', ['bower', 'package']);
     grunt.registerTask('package', ['jasmine', 'uglify', 'less']);
-    grunt.registerTask('dev', ['less', 'watch']);
+    grunt.registerTask('dev', ['env:dev', 'less', 'watch']);
+    grunt.registerTask('build', ['env:build', 'package'])
 };
