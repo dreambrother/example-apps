@@ -62,6 +62,6 @@ module.exports = function(grunt) {
     // Default task(s).
     grunt.registerTask('default', ['bower', 'package']);
     grunt.registerTask('package', ['jasmine', 'uglify', 'less']);
-    grunt.registerTask('dev', ['env:dev', 'less', 'watch']);
-    grunt.registerTask('build', ['env:build', 'package'])
+    grunt.registerTask('dev', ['env:dev', 'preprocess', 'less', 'watch']);
+    grunt.registerTask('build', ['env:build', 'preprocess', 'package'])
 };
