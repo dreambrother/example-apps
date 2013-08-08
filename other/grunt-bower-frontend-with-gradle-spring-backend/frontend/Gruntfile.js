@@ -7,18 +7,25 @@ module.exports = function(grunt) {
                 //just run 'grunt bower:install' and you'll see files from your Bower packages in lib directory
             }
         },
-//        uglify: {
-//            build: {
-//                src: 'src/<%= pkg.name %>.js',
-//                dest: 'build/<%= pkg.name %>.min.js'
-//            }
-//        },
+        uglify: {
+            build: {
+                files: {
+                    'build/app.min.js': ['js/src/app.js', 'lib/angular/angular.js']
+                }
+            }
+        },
         jasmine: {
             test: {
                 src: 'js/src/*.js',
                 options: {
-                    specs: 'js/spec/*spec.js'
+                    specs: 'js/spec/*Spec.js'
                 }
+            }
+        },
+        less: {
+            compile: {
+                src: 'less/styles.less',
+                dest: 'build/styles.css'
             }
         }
     });
@@ -27,8 +34,9 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-bower-task');
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     // Default task(s).
-    grunt.registerTask('default', ['jasmine', 'uglify']);
-
+    grunt.registerTask('default', ['bower', 'package']);
+    grunt.registerTask('package', ['jasmine', 'uglify', 'less']);
 };
