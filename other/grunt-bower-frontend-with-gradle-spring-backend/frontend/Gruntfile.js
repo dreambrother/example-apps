@@ -27,6 +27,12 @@ module.exports = function(grunt) {
                 src: 'less/styles.less',
                 dest: 'build/styles.css'
             }
+        },
+        watch: {
+            styles: {
+                files: ['less/*.less'],
+                tasks: ['less']
+            }
         }
     });
 
@@ -35,8 +41,10 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-jasmine');
     grunt.loadNpmTasks('grunt-bower-task');
     grunt.loadNpmTasks('grunt-contrib-less');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 
     // Default task(s).
     grunt.registerTask('default', ['bower', 'package']);
     grunt.registerTask('package', ['jasmine', 'uglify', 'less']);
+    grunt.registerTask('dev', ['less', 'watch']);
 };
