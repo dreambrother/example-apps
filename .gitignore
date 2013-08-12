@@ -19,3 +19,4 @@ _SpecRunner.html
 .grunt
 lib
 components
+*.tmp
