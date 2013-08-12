@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Create book</title>
+</head>
+<body>
+    <form action="{% url 'save_book' %}" method="post">
+        {% csrf_token %}
+        <label>Title: </label><input type="text" name="title"/>
+        <label>Author: </label><input type="text" name="author"/>
+        <label>Price: </label><input type="number" name="price"/>
+        <input type="submit" value="Create"/>
+    </form>
+</body>
+</html>
