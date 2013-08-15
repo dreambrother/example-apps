@@ -17,7 +17,7 @@ var Child = (function(Ancestor) {
         Ancestor.call(this, x, y);
         this.z = z;
     }
-    Child.prototype = Ancestor.prototype;
+    Child.prototype = Object.create(Ancestor.prototype);
     Child.prototype.constructor = Child;
     return Child;
 })(Base);
