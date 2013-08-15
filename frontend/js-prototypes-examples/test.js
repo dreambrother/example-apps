@@ -1,54 +1,34 @@
-describe("Custom object tests", function() {
-    var sut = new TestClass()
-    
-    it("Should have prototype method", function() {        
-        var result = sut.prototypeMethod()
-        expect(result).toBeDefined()
-    })
-    
-    it("Should have static method", function() {
-        var result = TestClass.staticMethod()
-        expect(result).toBeDefined()
-    })
-    
-    it("Should be instance of it's class", function() {
-        var result = sut instanceof TestClass
-        expect(result).toBe(true)
-    })
-    
-    it("Should store property", function() {
-        var sutWithProp = new TestClass(1)
-        var result = sutWithProp.prop
-        expect(result).toBe(1)
-    })
-    
-    it("Should have instance method", function() {
-        var result = sut.instanceMethod()
-        expect(result).toBeDefined()
-    })
-})
+describe("Base object", function() {
+    it("should have properties", function() {
+        var sut = new Base(1, 2);
+        expect(sut.x).toBe(1);
+        expect(sut.y).toBe(2);
+    });
 
-describe("Descendant object test", function() {
-    var descSut = new TestDescendantClass()
-    
-    it("Should inherit prototype methods", function() {
-        var result = descSut.prototypeMethod()
-        expect(result).toBeDefined()
-    })
-    
-    it("Should be instanceof it's ancestor", function() {
-        var result = descSut instanceof TestClass
-        expect(result).toBe(true)
-    })
-    
-    it("Should have own methods", function() {
-        var result = descSut.descPrototypeMethod()
-        expect(result).toBeDefined()
-    })
-    
-    it("Should not inherit instance methods", function() {
-        var callback = function() { descSut.instanceMethod() }
-        expect(callback).toThrow()
-    })
-})
+    it("should have methods of prototype", function() {
+        var sut = new Base(1, 2);
+        expect(sut.sum()).toBe(3);
+    });
 
+    it("should have static function", function() {
+        expect(Base.staticSum(2, 5)).toBe(7);
+    });
+});
+
+describe("Child object", function() {
+    it("should have parent properties", function() {
+        var sut = new Child(3, 4);
+        expect(sut.x).toBe(3);
+        expect(sut.y).toBe(4);
+    });
+
+    it("should have own properties", function() {
+        var sut = new Child(1, 1, 8);
+        expect(sut.z).toBe(8);
+    });
+
+    it("should have parent methods", function() {
+        var sut = new Child(1, 5);
+        expect(sut.sum()).toBe(6);
+    });
+});
