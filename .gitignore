@@ -20,3 +20,4 @@ _SpecRunner.html
 lib
 components
 *.tmp
+.gradle
