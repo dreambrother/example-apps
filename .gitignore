@@ -21,3 +21,4 @@ lib
 components
 *.tmp
 .gradle
+out
