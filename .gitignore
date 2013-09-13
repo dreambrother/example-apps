@@ -22,3 +22,4 @@ components
 *.tmp
 .gradle
 out
+*.beam
