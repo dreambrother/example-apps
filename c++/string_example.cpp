@@ -7,6 +7,6 @@ int main()
     string teststr = "I'm a string";
     cout << teststr << endl;
 
-    string latinstr = "Латиница";
+    string latinstr = "Кириллица";
     cout << latinstr << endl;
 }
