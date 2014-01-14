@@ -17,6 +17,8 @@ void arrayPointers()
     cout << "Dereference array: " << *arr << endl;
     cout << "Add 1 to dereferenced val: " << *arr + 1 << endl;
     cout << "Add 1 and dereference: " << *(arr + 1) << endl;
+    cout << "Second element reference: " << &arr[1] << endl;
+    cout << "Array pointer + 1: " << arr + 1 << endl;
 }
 
 int main() 
