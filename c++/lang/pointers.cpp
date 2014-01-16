@@ -21,11 +21,22 @@ void arrayPointers()
     cout << "Array pointer + 1: " << arr + 1 << endl;
 }
 
+void functionPtrAndRef(int *a, int &b)
+{
+    cout << "Function pointer value: " << a << endl;
+    cout << "Function reference value: " << &b << endl;
+}
+
 int main() 
 {
     simplePointers();
     cout << endl;
 
     arrayPointers();
+    cout << endl;
+
+    int val = 5;
+    int *a = &val;
+    functionPtrAndRef(a, *a);
 }
 
