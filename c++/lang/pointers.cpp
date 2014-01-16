@@ -27,6 +27,21 @@ void functionPtrAndRef(int *a, int &b)
     cout << "Function reference value: " << &b << endl;
 }
 
+int* referenceReturning(int &a) 
+{
+    return &a;
+}
+
+int add(int x, int y)
+{
+    return x + y;
+}
+
+int functionPointer(int (*addPointer)(int, int), int x, int y)
+{
+    return addPointer(x, y);
+}
+
 int main() 
 {
     simplePointers();
@@ -38,5 +53,9 @@ int main()
     int val = 5;
     int *a = &val;
     functionPtrAndRef(a, *a);
+
+    cout << "Pointer returned from function: " << referenceReturning(*a) << endl;
+
+    cout << "Function pointer: " << functionPointer(add, 2, 6) << endl;
 }
 
