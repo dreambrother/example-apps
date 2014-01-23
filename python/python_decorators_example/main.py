@@ -30,3 +30,16 @@ def test2():
     return "execute test2()"
 
 test2()
+
+print "########################################"
+
+def decorator_for_fun_with_param(fun):
+    def decorator(foo, bar):
+        print foo, bar
+    return decorator
+
+@decorator_for_fun_with_param
+def test3(foo, bar):
+    print "This shouldn't been printed!"
+
+test3('arg1', 'arg2')
