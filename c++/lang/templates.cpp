@@ -5,14 +5,14 @@ template <typename T>
 class Container
 {
     private:
-    T* value;
+    T value;
 
     public:
     Container(T val)
     {
-        this->value = &val;
+        this->value = val;
     }
-    T getValue() { return *value; }
+    T getValue() { return value; }
 };
 
 int main()
