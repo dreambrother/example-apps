@@ -7,7 +7,7 @@ class NotVirtBase
     int getFoo() { return 5; }
 };
 
-class NotVirtDerived
+class NotVirtDerived: public NotVirtBase
 {
     public:
     int getFoo() { return 10; }
@@ -39,7 +39,7 @@ class VirtBase
     virtual int getFoo() { return 5; }
 };
 
-class VirtDerived
+class VirtDerived: public VirtBase
 {
     public:
     virtual int getFoo() { return 10; }
