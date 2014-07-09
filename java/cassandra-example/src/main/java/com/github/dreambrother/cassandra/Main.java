@@ -33,5 +33,7 @@ public class Main {
         dao.increaseCounter("1", 50);
         dao.increaseCounter("3", 10);
         System.out.println(dao.readCounters(Arrays.asList("1", "2", "3")));
+
+        cluster.close();
     }
 }
