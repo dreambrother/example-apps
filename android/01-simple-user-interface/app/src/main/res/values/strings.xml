@@ -7,5 +7,6 @@
     <string name="button_send">Send</string>
     <string name="title_activity_display_message">Display Message</string>
     <string name="hello_world">Hello world!</string>
+    <string name="action_search">Search</string>
 
 </resources>
