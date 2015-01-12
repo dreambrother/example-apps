@@ -2,6 +2,7 @@ package com.github.dreambrother.android.ui;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,7 +18,11 @@ public class DisplayMessageActivity extends Activity {
         String message = intent.getStringExtra(MainActivity.EXTRA_MESSAGE);
 
         TextView textView = new TextView(this);
+        textView.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
+        textView.setTextSize(24);
         textView.setText(message);
+        
+        textView.setPadding(50, 0, 0, 0);
 
         this.setContentView(textView);
 
