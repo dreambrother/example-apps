@@ -21,7 +21,7 @@ public class DisplayMessageActivity extends Activity {
         textView.setTypeface(Typeface.create("serif", Typeface.BOLD_ITALIC));
         textView.setTextSize(24);
         textView.setText(message);
-        
+
         textView.setPadding(50, 0, 0, 0);
 
         this.setContentView(textView);
