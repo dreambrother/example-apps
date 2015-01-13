@@ -12,6 +12,7 @@ import android.widget.EditText;
 public class MainActivity extends Activity {
 
     public static final String EXTRA_MESSAGE = "com.github.dreambrother.message";
+    public static final String USER_MESSAGE = "userMessage";
     private static final String TAG = "MainActivity";
 
     @Override
@@ -56,6 +57,21 @@ public class MainActivity extends Activity {
     protected void onDestroy() {
         super.onDestroy();
         Log.i(TAG, "onDestroy");
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        Log.i(TAG, "onSaveInstanceState");
+
+        EditText editText = (EditText) findViewById(R.id.edit_message);
+        outState.putString(USER_MESSAGE, editText.getText().toString());
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        Log.i(TAG, "onRestoreInstanceState with " + savedInstanceState.getString(USER_MESSAGE));
     }
 
     @Override
