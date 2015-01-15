@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Fragments</string>
+    <string name="fragment_one_text">Fragment one</string>
+    <string name="fragment_two_text">Fragment two</string>
+    <string name="action_settings">Settings</string>
+
+</resources>

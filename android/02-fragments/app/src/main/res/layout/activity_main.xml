@@ -1,0 +1,21 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="horizontal"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <fragment android:name="com.github.dreambrother.android.fragments.FragmentOne"
+        android:id="@+id/fragment_one"
+        android:layout_weight="1"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_one" />
+
+    <fragment android:name="com.github.dreambrother.android.fragments.FragmentTwo"
+        android:id="@+id/fragment_two"
+        android:layout_weight="2"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        tools:layout="@layout/fragment_two" />
+
+</LinearLayout>
