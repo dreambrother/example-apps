@@ -13,7 +13,7 @@
 
     <fragment android:name="com.github.dreambrother.android.fragments.FragmentTwo"
         android:id="@+id/fragment_two"
-        android:layout_weight="2"
+        android:layout_weight="1"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         tools:layout="@layout/fragment_two" />

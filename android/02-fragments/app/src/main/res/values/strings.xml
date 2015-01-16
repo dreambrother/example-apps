@@ -2,8 +2,8 @@
 <resources>
 
     <string name="app_name">Fragments</string>
-    <string name="fragment_one_text">Fragment one</string>
     <string name="fragment_two_text">Fragment two</string>
     <string name="action_settings">Settings</string>
+    <string name="fragment_one_button_text">Show</string>
 
 </resources>

@@ -2,8 +2,12 @@ package com.github.dreambrother.android.fragments;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 public class MainActivity extends Activity {
@@ -34,5 +38,11 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void onButtonClick(View view) {
+        EditText newText = (EditText) findViewById(R.id.fragment_one_text);
+        TextView fragmentTwoTextView = (TextView) findViewById(R.id.fragment_two_text);
+        fragmentTwoTextView.setText(newText.getText().toString());
     }
 }
