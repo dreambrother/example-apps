@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Apps Interaction</string>
+    <string name="action_settings">Settings</string>
+    <string name="map_button_text">Open St.Petersburg on map</string>
+    <string name="send_sms_button_text">Send SMS to +7-921-1234-56-78</string>
+
+</resources>
