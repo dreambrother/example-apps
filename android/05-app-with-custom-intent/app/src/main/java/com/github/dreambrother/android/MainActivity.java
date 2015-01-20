@@ -1,4 +1,4 @@
-package com.github.dreambrother.android.interaction;
+package com.github.dreambrother.android;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -12,12 +12,17 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity {
 
-    public static final int REQUEST_CODE = 1;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        Intent intent = getIntent();
+        String scheme = intent.getScheme();
+        if (scheme != null && scheme.equals("content")) {
+            TextView textView = (TextView) findViewById(R.id.intent_data);
+            textView.setText(intent.getData().getSchemeSpecificPart());
+        }
     }
 
     @Override
@@ -42,29 +47,8 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-    public void onMapButtonClick(View view) {
-        Uri geo = Uri.parse("geo:0,0?q=Saint+Petersburg,+Russia");
-        Intent intent = new Intent(Intent.ACTION_VIEW, geo);
-        startActivity(intent);
-    }
-
-    public void onSmsButtonClick(View view) {
-        Uri phone = Uri.parse("sms:+792112345678");
-        Intent intent = new Intent(Intent.ACTION_VIEW, phone);
-        startActivity(intent);
-    }
-
-    public void onAppButtonClick(View view) {
-        Uri text = Uri.parse("content:Text from 04-app");
-        Intent intent = new Intent(Intent.ACTION_VIEW, text);
-        startActivityForResult(intent, REQUEST_CODE);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == REQUEST_CODE && resultCode == RESULT_OK) {
-            TextView textView = (TextView) findViewById(R.id.result_view);
-            textView.setText(R.string.ok);
-        }
+    public void onOkButtonClick(View view) {
+        setResult(RESULT_OK);
+        finish();
     }
 }
