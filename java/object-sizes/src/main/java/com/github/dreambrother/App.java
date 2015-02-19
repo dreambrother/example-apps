@@ -1,7 +1,5 @@
 package com.github.dreambrother;
 
-import java.util.concurrent.locks.ReentrantLock;
-
 public class App {
 
     /**
@@ -13,6 +11,15 @@ public class App {
         System.out.println("Size of Object: " + ObjectSizeGetter.getObjectSize(new Object()));
         System.out.println("Size of String: " + ObjectSizeGetter.getObjectSize(""));
         System.out.println("Size of Integer: " + ObjectSizeGetter.getObjectSize(Integer.MAX_VALUE));
-        System.out.println("Size of ReentrantLock: " + ObjectSizeGetter.getObjectSize(new ReentrantLock()));
+        System.out.println("Size of Array: " + ObjectSizeGetter.getObjectSize(new int[0]));
+        System.out.println("Size of Foo: " + ObjectSizeGetter.getObjectSize(new Foo()));
     }
+}
+
+class Foo {
+
+    public int integer = 10;
+    public String string = "asd";
+    public boolean bool = true;
+    public Object obj = new Object();
 }
