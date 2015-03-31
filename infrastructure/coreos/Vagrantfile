@@ -24,13 +24,10 @@ Vagrant.configure(2) do |config|
             instance.vm.provision "file", source: "configs/cloud.config", destination: "/tmp/vagrantfile-user-data"
             instance.vm.provision "shell", inline: "mv /tmp/vagrantfile-user-data /var/lib/coreos-vagrant/"
 
-            instance.vm.provision "file", source: "services/example-app.service", destination: "/tmp/services/example-app.service"
-            instance.vm.provision "shell", inline: "mv /tmp/services/example-app.service /etc/systemd/system/"
-
-            instance.vm.provision "file", source: "services/fleet-ui.service", destination: "/tmp/services/fleet-ui.service"
-            instance.vm.provision "shell", inline: "mv /tmp/services/fleet-ui.service /etc/systemd/system/"
-
-            instance.vm.provision "shell", inline: "systemctl start example-app.service fleet-ui.service"
+            instance.vm.provision "shell", inline: "install -m 755 -d /etc/fleet-services/"
+            instance.vm.provision "file", source: "services/", destination: "/tmp/"
+            instance.vm.provision "shell", inline: "cp /tmp/services/* /etc/fleet-services/"
+            instance.vm.provision "shell", inline: "rm -rf /tmp/services/"
         end
     end
 end
