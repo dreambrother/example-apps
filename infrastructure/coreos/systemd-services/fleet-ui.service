@@ -7,5 +7,5 @@ Requires=docker.service
 TimeoutStartSec=0
 ExecStartPre=-/usr/bin/docker kill fleet-ui
 ExecStartPre=-/usr/bin/docker rm fleet-ui
-ExecStart=/usr/bin/docker run --name=fleet-ui -p 3000:3000 -e ETCD_PEER=localhost purpleworks/fleet-ui
+ExecStart=/usr/bin/docker run --name=fleet-ui -p 3000:3000 -e ETCD_PEER=172.17.42.1 purpleworks/fleet-ui
 ExecStop=/usr/bin/docker stop fleet-ui
