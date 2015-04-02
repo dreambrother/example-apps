@@ -1,0 +1,14 @@
+[Unit]
+Description=Example of standard fleet unit
+After=docker.service
+Requires=docker.service
+
+[Service]
+TimeoutStartSec=0
+ExecStartPre=-/usr/bin/docker kill useless-%i
+ExecStartPre=-/usr/bin/docker rm useless-%i
+ExecStart=/usr/bin/docker run --name useless-%i busybox /bin/sh -c "while true; do echo 'Useless service'; sleep 5; done"
+ExecStop=/usr/bin/docker stop useless-%i
+
+[X-Fleet]
+Conflicts=useless@*.service
