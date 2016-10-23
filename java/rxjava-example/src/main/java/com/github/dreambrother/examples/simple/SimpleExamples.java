@@ -1,5 +1,7 @@
 package com.github.dreambrother.examples.simple;
 
+import net.sf.cglib.proxy.Enhancer;
+import net.sf.cglib.proxy.InvocationHandler;
 import rx.Observable;
 
 import java.util.Arrays;
@@ -7,35 +9,34 @@ import java.util.Arrays;
 public class SimpleExamples {
 
     public static void main(String[] args) {
-        SimpleExamples examples = new SimpleExamples();
+        SimpleExamples examples = printingFunctionNamesExamples(new SimpleExamples());
         examples.helloWorld();
         examples.sum();
         examples.getAllElements();
     }
 
-    private void helloWorld() {
-        printExampleName();
+    public void helloWorld() {
         Observable.from(Arrays.asList("Hello", "World"))
                 .subscribe(System.out::println);
     }
 
-    private void sum() {
-        printExampleName();
+    public void sum() {
         Observable.from(Arrays.asList(1, 2, 3, 4))
                 .reduce((acc, elem) -> acc + elem)
                 .subscribe(System.out::println);
     }
 
-    private void getAllElements() {
-        printExampleName();
+    public void getAllElements() {
         Observable.from(Arrays.asList("All", "words", "should", "be", "aggregated"))
                 .toList()
                 .map(words -> String.join(" ", words))
                 .subscribe(System.out::println);
     }
 
-    private void printExampleName() {
-        String methodName = Thread.currentThread().getStackTrace()[2].getMethodName(); // get calling function name
-        System.out.println("-------- " + methodName + " --------");
+    private static SimpleExamples printingFunctionNamesExamples(Object object) {
+        return (SimpleExamples) Enhancer.create(SimpleExamples.class, (InvocationHandler) (proxy, method, args) -> {
+            System.out.println("-------- " + method.getName() + " --------");
+            return method.invoke(object, args);
+        });
     }
 }
