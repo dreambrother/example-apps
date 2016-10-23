@@ -1,4 +1,4 @@
-package com.github.dreambrother.examples.simple;
+package com.github.dreambrother.examples;
 
 import net.sf.cglib.proxy.Enhancer;
 import net.sf.cglib.proxy.InvocationHandler;
