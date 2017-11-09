@@ -4,13 +4,15 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Rule;
 import org.junit.Test;
+import rx.Emitter;
 import rx.Observable;
 
+import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 @Slf4j
-public class FromTest {
+public class CreateTest {
 
     @Rule
     public LogTestName logTestName = new LogTestName();
@@ -42,5 +44,29 @@ public class FromTest {
                 .cache();
         observable.subscribe(val -> log.info("First get {}", val));
         observable.subscribe(val -> log.info("Second get {}", val));
+    }
+
+    @Test
+    public void testJust() {
+        Observable.just("4")
+                .subscribe(log::info);
+    }
+
+    @Test
+    public void testCreate() {
+        Observable.create((Emitter<String> emitter) -> {
+            emitter.onNext("5");
+            emitter.onNext("6");
+            emitter.onCompleted();
+        }, Emitter.BackpressureMode.BUFFER)
+                .subscribe(log::info);
+    }
+
+    @Test
+    public void testDoOnNext() {
+        Observable.from(Arrays.asList(1, 2, 3))
+                .doOnNext(val -> log.info("doOnNext {}", val))
+                .map(String::valueOf)
+                .subscribe(log::info);
     }
 }

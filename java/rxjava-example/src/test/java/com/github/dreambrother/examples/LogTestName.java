@@ -9,6 +9,6 @@ public class LogTestName extends TestWatcher {
 
     @Override
     protected void starting( Description description ) {
-        log.info("{} started", description.getMethodName());
+        log.info("------- {} started --------", description.getMethodName());
     }
 }
