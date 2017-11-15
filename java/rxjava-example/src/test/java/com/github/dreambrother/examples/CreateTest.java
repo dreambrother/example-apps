@@ -81,4 +81,27 @@ public class CreateTest {
         Completable.create(CompletableSubscriber::onCompleted)
                 .subscribe(() -> log.info("Completed"));
     }
+
+    @Test
+    public void testInfinite() throws InterruptedException {
+        Observable<String> observable = Observable.unsafeCreate(subscriber -> new Thread(
+                () -> {
+                    log.info("Create observable");
+
+                    int count = 0;
+                    while (!subscriber.isUnsubscribed()) {
+                        subscriber.onNext(count++);
+                    }
+                }).start())
+                .map(String::valueOf);
+
+        Subscription subscription1 = observable.subscribe(log::info);
+        Subscription subscription2 = observable.subscribe(log::info);
+
+        Thread.sleep(1);
+        subscription1.unsubscribe();
+
+        Thread.sleep(1);
+        subscription2.unsubscribe();
+    }
 }
