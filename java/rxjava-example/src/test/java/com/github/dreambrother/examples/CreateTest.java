@@ -4,8 +4,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Rule;
 import org.junit.Test;
-import rx.Emitter;
-import rx.Observable;
+import rx.*;
 
 import java.util.Arrays;
 import java.util.concurrent.ExecutorService;
@@ -68,5 +67,18 @@ public class CreateTest {
                 .doOnNext(val -> log.info("doOnNext {}", val))
                 .map(String::valueOf)
                 .subscribe(log::info);
+    }
+
+    @Test
+    public void testSingle() {
+        Single.create(subscriber -> subscriber.onSuccess(5))
+                .map(String::valueOf)
+                .subscribe(log::info);
+    }
+
+    @Test
+    public void testCompletable() {
+        Completable.create(CompletableSubscriber::onCompleted)
+                .subscribe(() -> log.info("Completed"));
     }
 }
