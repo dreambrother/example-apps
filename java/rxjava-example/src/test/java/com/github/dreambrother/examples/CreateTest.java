@@ -46,6 +46,30 @@ public class CreateTest {
     }
 
     @Test
+    public void testFromCallableError() {
+        Observable.fromCallable(() -> {
+            throw new RuntimeException("test");
+        }).map(String::valueOf)
+                .subscribe(log::info, this::handleException);
+    }
+
+    @Test
+    public void testUnsafeCreateError() {
+        Observable.unsafeCreate(subscriber -> {
+            throw new RuntimeException("ok");
+        }).map(Object::toString)
+                .subscribe(log::info, this::handleException);
+    }
+
+    @Test
+    public void testCreateWithEmitterError() {
+        Observable.create((Emitter<String> emitter) -> {
+            throw new RuntimeException("ok");
+        }, Emitter.BackpressureMode.BUFFER)
+                .subscribe(log::info, this::handleException);
+    }
+
+    @Test
     public void testJust() {
         Observable.just("4")
                 .subscribe(log::info);
@@ -103,5 +127,9 @@ public class CreateTest {
 
         Thread.sleep(1);
         subscription2.unsubscribe();
+    }
+
+    private void handleException(Throwable ex) {
+        log.error("Caught", ex);
     }
 }
