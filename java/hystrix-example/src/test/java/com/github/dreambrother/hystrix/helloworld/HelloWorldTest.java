@@ -46,4 +46,11 @@ public class HelloWorldTest {
                 .toObservable()
                 .subscribe(System.out::println);
     }
+
+    @Test
+    public void testObservableNonRecoverableFallback() {
+        new NonRecoverableFailureHystrixObservableCommand()
+                .toObservable()
+                .subscribe(System.out::println, System.err::println);
+    }
 }
