@@ -13,7 +13,7 @@ public class HelloWorldTest {
     @Test
     public void testHelloWorldObservableCommand() {
         new HelloWorldObservableCommand("Observable Hystrix")
-                .construct()
+                .toObservable()
                 .subscribe(System.out::println);
     }
 
@@ -21,9 +21,17 @@ public class HelloWorldTest {
     @SneakyThrows
     public void testSyncHelloWorldObservableCommand() {
         System.out.println(new HelloWorldObservableCommand("Sync Observable Hystrix")
-                .construct()
+                .toObservable()
                 .toBlocking()
                 .toFuture()
+                .get());
+    }
+
+    @Test
+    @SneakyThrows
+    public void testAsyncHelloWorldCommand() {
+        System.out.println(new HelloWorldCommand("Sync Hystrix")
+                .queue()
                 .get());
     }
 }
