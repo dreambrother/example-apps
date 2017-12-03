@@ -8,4 +8,11 @@ public class HelloWorldTest {
     public void testHelloWorldCommand() {
         System.out.println(new HelloWorldCommand("Hystrix").run());
     }
+
+    @Test
+    public void testHelloWorldObservableCommand() {
+        new HelloWorldObservableCommand("Observable Hystrix")
+                .construct()
+                .subscribe(System.out::println);
+    }
 }
