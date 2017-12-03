@@ -39,4 +39,11 @@ public class HelloWorldTest {
     public void testFallback() {
         System.out.println(new FailureHystrixCommand("Hystrix").execute());
     }
+
+    @Test
+    public void testObservableFallback() {
+        new FailureHystrixObservableCommand()
+                .toObservable()
+                .subscribe(System.out::println);
+    }
 }
