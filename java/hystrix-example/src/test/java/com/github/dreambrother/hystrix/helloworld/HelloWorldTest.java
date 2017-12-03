@@ -6,7 +6,7 @@ public class HelloWorldTest {
 
     @Test
     public void testHelloWorldCommand() {
-        System.out.println(new HelloWorldCommand("Hystrix").run());
+        System.out.println(new HelloWorldCommand("Hystrix").execute());
     }
 
     @Test
