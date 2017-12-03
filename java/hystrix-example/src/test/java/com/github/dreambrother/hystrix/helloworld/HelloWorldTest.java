@@ -34,4 +34,9 @@ public class HelloWorldTest {
                 .queue()
                 .get());
     }
+
+    @Test
+    public void testFallback() {
+        System.out.println(new FailureHystrixCommand("Hystrix").execute());
+    }
 }
