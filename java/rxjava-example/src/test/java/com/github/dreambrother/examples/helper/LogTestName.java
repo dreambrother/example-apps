@@ -1,4 +1,4 @@
-package com.github.dreambrother.examples;
+package com.github.dreambrother.examples.helper;
 
 import lombok.extern.slf4j.Slf4j;
 import org.junit.rules.TestWatcher;

@@ -1,5 +1,6 @@
 package com.github.dreambrother.examples;
 
+import com.github.dreambrother.examples.helper.LogTestName;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.Rule;
@@ -127,6 +128,12 @@ public class CreateTest {
 
         Thread.sleep(1);
         subscription2.unsubscribe();
+    }
+
+    @Test
+    public void testUnhandledException() {
+        Completable.complete()
+                .subscribe(() -> { throw new RuntimeException("OK"); }); // will not be thrown by subscribe() method
     }
 
     private void handleException(Throwable ex) {
