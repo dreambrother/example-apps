@@ -136,6 +136,13 @@ public class CreateTest {
                 .subscribe(() -> { throw new RuntimeException("OK"); }); // will not be thrown by subscribe() method
     }
 
+    @Test
+    public void testErrorEmition() {
+        Observable.just("1")
+                .flatMap(val -> Observable.<String>error(new RuntimeException("OK")))
+                .subscribe(log::info, this::handleException);
+    }
+
     private void handleException(Throwable ex) {
         log.error("Caught", ex);
     }
