@@ -1,0 +1,22 @@
+plugins {
+    id 'java'
+}
+
+group 'com.github.dreambrother.examples'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 11
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'org.eclipse.jetty:jetty-server:9.4.20.v20190813'
+    implementation 'org.eclipse.jetty:jetty-servlet:9.4.20.v20190813'
+    implementation 'org.apache.httpcomponents:httpasyncclient:4.1.4'
+    implementation 'ch.qos.logback:logback-classic:1.2.3'
+    compileOnly 'org.projectlombok:lombok:1.18.8'
+    annotationProcessor 'org.projectlombok:lombok:1.18.8'
+    testImplementation 'junit:junit:4.12'
+}
