@@ -34,7 +34,7 @@
                 <artifactId>javafx-maven-plugin</artifactId>
                 <version>0.0.8</version>
                 <configuration>
-                    <mainClass>com.github.dreambrother.Main</mainClass>
+                    <mainClass>com.github.dreambrother.person.PersonApp</mainClass>
                 </configuration>
             </plugin>
         </plugins>
