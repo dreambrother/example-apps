@@ -9,7 +9,7 @@
     <name>camel-java-dsl-example</name>
 
     <properties>
-        <camel.version>2.10.2</camel.version>
+        <camel.version>2.24.0</camel.version>
     </properties>
 
     <build>
