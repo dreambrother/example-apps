@@ -46,6 +46,7 @@ func main() {
 	}()
 
 	fmt.Print("> ")
+	reader := bufio.NewReader(conn)
 	for {
 		select {
 		case <-ctx.Done():
@@ -66,7 +67,7 @@ func main() {
 				return
 			}
 
-			response, err := bufio.NewReader(conn).ReadString('\n')
+			response, err := reader.ReadString('\n')
 			if err != nil {
 				log.Println("Error reading response:", err)
 				return

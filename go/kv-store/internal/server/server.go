@@ -9,34 +9,31 @@ import (
 	"log"
 	"net"
 	"os"
-	"strconv"
 	"strings"
 	"sync"
-	"sync/atomic"
 	"time"
 )
 
 var errTooLarge = errors.New("stream exceeded maximum byte limit")
 
 type Server struct {
-	port     int
+	addr     string
 	handlers map[string]handler
-	stopped  *atomic.Bool
 	listener net.Listener
-	wg       sync.WaitGroup
+	wg       *sync.WaitGroup
 	workers  int
 	queue    chan net.Conn
 }
 
 type handler func(args []string) (string, error)
 
-func New(port int, workers int) *Server {
+func New(addr string, workers int) *Server {
 	return &Server{
-		port:     port,
+		addr:     addr,
 		handlers: make(map[string]handler),
+		wg:       &sync.WaitGroup{},
 		workers:  workers,
 		queue:    make(chan net.Conn, workers),
-		stopped:  &atomic.Bool{},
 	}
 }
 
@@ -44,42 +41,64 @@ func (s *Server) Register(op string, handle func(args []string) (string, error))
 	s.handlers[op] = handle
 }
 
-func (s *Server) Start() error {
-	log.Println("Starting server on port", s.port)
-	listener, err := net.Listen("tcp", ":"+strconv.Itoa(s.port))
+func (s *Server) Start(ctx context.Context, stopTimeout time.Duration) error {
+	log.Println("Starting server on", s.addr)
+	listener, err := net.Listen("tcp", s.addr)
 	if err != nil {
-		log.Fatal("Error when start listening", err)
+		return fmt.Errorf("failed to listen: %w", err)
 	}
 	s.listener = listener
 
 	for range s.workers {
+		s.wg.Add(1)
 		go s.worker(s.queue)
 	}
 
+	go func() {
+		<-ctx.Done()
+		log.Println("Server is shutting down")
+		err := listener.Close()
+		if err != nil {
+			log.Println("Error when closing listener", err)
+		}
+	}()
+
 	log.Println("Server started")
-	for !s.stopped.Load() {
+	for {
 		clientConn, err := listener.Accept()
 		if err != nil {
-			if s.stopped.Load() {
-				// expected behavior
-				break
+			if errors.Is(err, net.ErrClosed) {
+				log.Println("Stop accepting connections")
+				s.closeAndWait(stopTimeout)
+				return nil
 			}
 			log.Println("Error when accepting connection", err)
 			continue
 		}
 		s.queue <- clientConn
 	}
-	close(s.queue)
-
-	return nil
 }
 
 func (s *Server) worker(q chan net.Conn) {
-	s.wg.Add(1)
 	defer s.wg.Done()
 
 	for conn := range q {
 		s.handle(conn)
+	}
+}
+
+func (s *Server) closeAndWait(timeout time.Duration) {
+	done := make(chan struct{})
+	go func() {
+		close(s.queue)
+		s.wg.Wait()
+		close(done)
+	}()
+	select {
+	case <-done:
+		return
+	case <-time.After(timeout):
+		log.Println("Timeout waiting for workers to finish")
 	}
 }
 
@@ -142,30 +161,4 @@ func readLine(r io.Reader, maxBytes int64) (string, error) {
 		return line, err
 	}
 	return line[:len(line)-1], nil
-}
-
-func (s *Server) Stop(timeout time.Duration) {
-	log.Println("Stopping server...")
-	s.stopped.Store(true)
-	err := s.listener.Close()
-	if err != nil {
-		log.Println("Error when closing listener", err)
-	}
-
-	log.Println("Waiting for workers to stop...")
-	ctx, cancel := context.WithTimeout(context.Background(), timeout)
-	defer cancel()
-
-	closeCh := make(chan struct{})
-	go func() {
-		s.wg.Wait()
-		close(closeCh)
-	}()
-
-	select {
-	case <-closeCh:
-		log.Println("Workers stopped")
-	case <-ctx.Done():
-		log.Println("Timeout reached, forcing shutdown")
-	}
 }
