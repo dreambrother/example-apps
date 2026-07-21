@@ -2,7 +2,7 @@ package singlethreaded
 
 import (
 	"context"
-	"log"
+	"log/slog"
 	"time"
 )
 
@@ -77,8 +77,8 @@ func (s *SingleThreadedStorage) Set(key, value string) {
 func (s *SingleThreadedStorage) WaitForStop(timeout time.Duration) {
 	select {
 	case <-s.done:
-		log.Println("Storage stopped")
+		slog.Info("storage stopped")
 	case <-time.After(timeout):
-		log.Println("Storage stop timeout reached")
+		slog.Warn("storage stop timeout reached")
 	}
 }

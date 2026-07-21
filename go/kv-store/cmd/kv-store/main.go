@@ -3,7 +3,8 @@ package main
 import (
 	"context"
 	"flag"
-	"log"
+	"log/slog"
+	"os"
 	"os/signal"
 	"syscall"
 	"time"
@@ -25,12 +26,12 @@ func main() {
 	storage := newStorage(ctx, *backend)
 	srv.Register("get", func(args []string) (string, error) {
 		key := args[0]
-		log.Println("get", key)
+		slog.Info("get", "key", key)
 		return storage.Get(key), nil
 	})
 	srv.Register("set", func(args []string) (string, error) {
 		key, value := args[0], args[1]
-		log.Println("set", key, value)
+		slog.Info("set", "key", key, "value", value)
 		storage.Set(key, value)
 		return "ok", nil
 	})
@@ -44,7 +45,8 @@ func newStorage(ctx context.Context, backend string) storage.Storage {
 	case "single-threaded":
 		return singlethreaded.NewSingleThreadedStorage(ctx)
 	default:
-		log.Fatal("Unknown backend " + backend)
+		slog.Error("unknown backend", "backend", backend)
+		os.Exit(1)
 		return nil
 	}
 }

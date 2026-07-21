@@ -6,7 +6,7 @@ import (
 	"errors"
 	"fmt"
 	"io"
-	"log"
+	"log/slog"
 	"net"
 	"os"
 	"strings"
@@ -42,7 +42,7 @@ func (s *Server) Register(op string, handle func(args []string) (string, error))
 }
 
 func (s *Server) Start(ctx context.Context, stopTimeout time.Duration) error {
-	log.Println("Starting server on", s.addr)
+	slog.Info("starting server", "addr", s.addr)
 	listener, err := net.Listen("tcp", s.addr)
 	if err != nil {
 		return fmt.Errorf("failed to listen: %w", err)
@@ -56,23 +56,23 @@ func (s *Server) Start(ctx context.Context, stopTimeout time.Duration) error {
 
 	go func() {
 		<-ctx.Done()
-		log.Println("Server is shutting down")
+		slog.Info("server is shutting down")
 		err := listener.Close()
 		if err != nil {
-			log.Println("Error when closing listener", err)
+			slog.Error("close listener", "err", err)
 		}
 	}()
 
-	log.Println("Server started")
+	slog.Info("server started")
 	for {
 		clientConn, err := listener.Accept()
 		if err != nil {
 			if errors.Is(err, net.ErrClosed) {
-				log.Println("Stop accepting connections")
+				slog.Info("stop accepting connections")
 				s.closeAndWait(stopTimeout)
 				return nil
 			}
-			log.Println("Error when accepting connection", err)
+			slog.Error("accept connection", "err", err)
 			continue
 		}
 		s.queue <- clientConn
@@ -98,7 +98,7 @@ func (s *Server) closeAndWait(timeout time.Duration) {
 	case <-done:
 		return
 	case <-time.After(timeout):
-		log.Println("Timeout waiting for workers to finish")
+		slog.Warn("timeout waiting for workers to finish")
 	}
 }
 
@@ -110,29 +110,29 @@ func (s *Server) handle(clientConn net.Conn) {
 		line, err := readLine(clientConn, 10*1024)
 		if err != nil {
 			if errors.Is(err, errTooLarge) {
-				log.Println("Request too large", err)
+				slog.Warn("request too large", "err", err)
 				clientConn.Write([]byte("error 1: request too large\n"))
 			} else if errors.Is(err, io.EOF) {
-				log.Println("Client disconnected")
+				slog.Debug("client disconnected")
 			} else if errors.Is(err, os.ErrDeadlineExceeded) {
-				log.Println("Connection timed out")
+				slog.Debug("connection timed out")
 			} else {
-				log.Println("Error when reading command", err)
+				slog.Error("read command", "err", err)
 			}
 			return
 		}
 
-		log.Println("Request", line)
+		slog.Info("request", "line", line)
 		response, err := s.processCommand(line)
 		if err != nil {
-			log.Println("Error when processing command", err)
+			slog.Error("process command", "err", err)
 			clientConn.Write([]byte("error 100: " + err.Error() + "\n"))
 			continue
 		}
-		log.Println("Response", response)
+		slog.Info("response", "value", response)
 		_, err = clientConn.Write([]byte(response + "\n"))
 		if err != nil {
-			log.Println("Error when writing response", err)
+			slog.Error("write response", "err", err)
 			return
 		}
 	}

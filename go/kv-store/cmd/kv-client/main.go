@@ -5,7 +5,7 @@ import (
 	"context"
 	"flag"
 	"fmt"
-	"log"
+	"log/slog"
 	"net"
 	"os"
 	"os/signal"
@@ -18,7 +18,8 @@ func main() {
 
 	conn, err := net.Dial("tcp", *addr)
 	if err != nil {
-		log.Fatal("Error connecting to server:", err)
+		slog.Error("connect to server", "err", err)
+		os.Exit(1)
 	}
 	defer conn.Close()
 
@@ -41,13 +42,13 @@ func main() {
 			lines <- scanner.Text()
 		}
 		if err := scanner.Err(); err != nil {
-			log.Println("Error reading input:", err)
+			slog.Error("read input", "err", err)
 		}
 	}()
 
-	fmt.Print("> ")
 	reader := bufio.NewReader(conn)
 	for {
+		fmt.Print("> ")
 		select {
 		case <-ctx.Done():
 			fmt.Println("\nDisconnected")
@@ -57,24 +58,22 @@ func main() {
 				return
 			}
 			if line == "" {
-				fmt.Print("> ")
 				continue
 			}
 
 			_, err := fmt.Fprintf(conn, "%s\n", line)
 			if err != nil {
-				log.Println("Error sending command:", err)
+				slog.Error("send command", "err", err)
 				return
 			}
 
 			response, err := reader.ReadString('\n')
 			if err != nil {
-				log.Println("Error reading response:", err)
+				slog.Error("read response", "err", err)
 				return
 			}
 
 			fmt.Print(response)
-			fmt.Print("> ")
 		}
 	}
 }
