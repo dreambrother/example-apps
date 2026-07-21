@@ -30,7 +30,7 @@ type result struct {
 	val string
 }
 
-func NewSingleThreadedStorage(ctx context.Context) *SingleThreadedStorage {
+func New(ctx context.Context) *SingleThreadedStorage {
 	s := &SingleThreadedStorage{
 		requests: make(chan request),
 		results:  make(chan result),

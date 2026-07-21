@@ -39,7 +39,7 @@ func TestSingleThreadedStorage_Override(t *testing.T) {
 func withStorage(f func(s *SingleThreadedStorage)) {
 	ctx, cancel := context.WithCancel(context.Background())
 	defer cancel()
-	s := NewSingleThreadedStorage(ctx)
+	s := New(ctx)
 	f(s)
 	cancel()
 	s.WaitForStop(1 * time.Second)

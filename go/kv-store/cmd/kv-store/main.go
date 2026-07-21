@@ -11,12 +11,14 @@ import (
 
 	"local/kv-store/internal/server"
 	"local/kv-store/internal/storage"
+	"local/kv-store/internal/storage/rwmutex"
+	"local/kv-store/internal/storage/sharded"
 	"local/kv-store/internal/storage/singlethreaded"
 )
 
 func main() {
 	addr := flag.String("addr", "0.0.0.0:9000", "server address (host:port)")
-	backend := flag.String("backend", "single-threaded", "backend storage")
+	backend := flag.String("backend", "single-threaded", "backend storage (single-threaded, sharded-mutex, rw-mutex)")
 	flag.Parse()
 
 	ctx, stop := signal.NotifyContext(context.Background(), syscall.SIGINT, syscall.SIGTERM)
@@ -36,14 +38,18 @@ func main() {
 		return "ok", nil
 	})
 
-	srv.Start(ctx, 10*time.Second) // blocking until shutdown
+	srv.Start(ctx, 10*time.Second)        // blocking until shutdown
 	storage.WaitForStop(10 * time.Second) // wait for storage to finish
 }
 
 func newStorage(ctx context.Context, backend string) storage.Storage {
 	switch backend {
 	case "single-threaded":
-		return singlethreaded.NewSingleThreadedStorage(ctx)
+		return singlethreaded.New(ctx)
+	case "rw-mutex":
+		return rwmutex.New()
+	case "sharded-mutex":
+		return sharded.New(16)
 	default:
 		slog.Error("unknown backend", "backend", backend)
 		os.Exit(1)
