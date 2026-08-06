@@ -1,0 +1,4 @@
+{
+    "name": "Go dev container",
+    "image": "localhost/go-dev:44"
+}
