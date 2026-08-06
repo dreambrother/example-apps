@@ -9,11 +9,11 @@ import (
 	"syscall"
 	"time"
 
-	"local/kv-store/internal/server"
-	"local/kv-store/internal/storage"
-	"local/kv-store/internal/storage/rwmutex"
-	"local/kv-store/internal/storage/sharded"
-	"local/kv-store/internal/storage/singlethreaded"
+	"local/kv-store/server"
+	"local/kv-store/storage"
+	"local/kv-store/storage/rwmutex"
+	"local/kv-store/storage/sharded"
+	"local/kv-store/storage/singlethreaded"
 )
 
 func main() {
