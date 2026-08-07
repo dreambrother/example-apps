@@ -1,4 +1,13 @@
 {
     "name": "Go dev container",
-    "image": "localhost/go-dev:44"
+    "image": "mcr.microsoft.com/devcontainers/go:1.26",
+    "workspaceMount": "source=${localWorkspaceFolder}/../..,target=/workspace,type=bind",
+    "workspaceFolder": "/workspace/go/kv-store",
+    "mounts": [
+        "source=${localEnv:HOME}/.gitconfig,target=/home/vscode/.gitconfig,type=bind,consistency=cached",
+        "source=${localEnv:SSH_AUTH_SOCK},target=/tmp/ssh-agent.socket,type=bind"
+    ],
+    "containerEnv": {
+        "SSH_AUTH_SOCK": "/tmp/ssh-agent.socket"
+    }
 }
